@@ -145,16 +145,17 @@ int main(int argc, char **argv) {
 
             bool collided = false;
             for (int j = 0; j < NUM_OBJECTS; j++) {
-                if (objects[j].active && CheckCollisionCircles(proj->position, proj->radius, objects[j].position, objects[j].radius)) {
-                    if (objects[j].health > 1) {
-                        objects[j].health--;
-                    } else {
-                        objects[j].active = false;
-                        active_objects--;
-                    }
-                    collided = true;
-                    break;
+                if (!(objects[j].active && CheckCollisionCircles(proj->position, proj->radius, objects[j].position, objects[j].radius))) continue;
+
+                if (objects[j].health > 1) {
+                    objects[j].health--;
+                } else {
+                    objects[j].active = false;
+                    active_objects--;
                 }
+
+                collided = true;
+                break;
             }
 
             if (collided || proj->position.x < 0 || proj->position.x > WINDOW_WIDTH || proj->position.y < 0 || proj->position.y > WINDOW_HEIGHT) {
