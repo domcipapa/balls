@@ -7,6 +7,7 @@
 #define WINDOW_HEIGHT 900
 #define WINDOW_TITLE "fuck raylib <3"
 
+#define OBJECT_SIZE_SIZE_OFFSET 5
 #define NUM_OBJECTS 77
 #define PLAYER_SIZE 9
 
@@ -141,6 +142,7 @@ int main(int argc, char **argv) {
 
                 if (objects[j].health > 1) {
                     objects[j].health--;
+                    objects[j].radius--;
                 } else {
                     objects[j].active = false;
                     active_objects--;
@@ -183,7 +185,7 @@ int main(int argc, char **argv) {
 void init_objects(Object objects[], int count) {
     for (int i = 0; i < count; i++) {
         int health = GetRandomValue(7, 13);
-        objects[i].radius = (float)health;
+        objects[i].radius = (float) health + OBJECT_SIZE_SIZE_OFFSET;
 
         bool valid_position = false;
         while (!valid_position) {
